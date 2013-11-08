@@ -812,21 +812,6 @@ window.shower = window.shower || (function(window, document, undefined) {
 				}
 			break;
 
-			case 116: // F5 (Shift)
-				e.preventDefault();
-				if (shower.isListMode()) {
-					slideNumber = e.shiftKey ? slide.number : 0;
-
-					shower.go(slideNumber);
-					shower.enterSlideMode();
-					shower.showPresenterNotes(slideNumber);
-
-					slide.timing && slide.initTimer(shower);
-				} else {
-					shower.enterListMode();
-				}
-			break;
-
 			case 13: // Enter
 				if (shower.isListMode()) {
 					e.preventDefault();
@@ -917,6 +902,7 @@ window.shower = window.shower || (function(window, document, undefined) {
 
 		if (slideId) {
 			if (shower.isSlideMode() && ! shower._checkInteractiveElement(e)) {
+				e.preventDefault();
 				x = e.touches[0].pageX;
 
 				if (x > window.innerWidth / 2) {
@@ -927,6 +913,7 @@ window.shower = window.shower || (function(window, document, undefined) {
 			}
 
 			if (shower.isListMode()) {
+				e.preventDefault();
 				slideNumber = shower.getSlideNumber(slideId);
 				// Warning: go must be before enterSlideMode.
 				// Otherwise there is a bug in Chrome
